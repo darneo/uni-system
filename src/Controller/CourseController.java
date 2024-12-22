@@ -35,6 +35,17 @@ public class CourseController {
                     }
                 }
 
+                // Проверка лимита кредитов
+                Transcript currentTranscript = student.getTranscripts().lastElement(); // Предполагается, что это текущий семестр
+                int totalCredits = 0;
+                for (Course course : currentTranscript.getCourses().keySet()) {
+                    totalCredits += course.getCredits();
+                }
+
+                if (totalCredits + pickedCourse.getCredits() > 30) {
+                    return false; // Нельзя добавить курс, превышающий лимит кредитов
+                }
+
                 // Получаем или создаем группу для курса
                 Vector<Lesson> lessons = student.getGroup(pickedCourse);
                 if (lessons == null) {
@@ -51,6 +62,7 @@ public class CourseController {
             return false;
         }
     }
+
     private Vector<Lesson> createLessonsForCourse(Course course) {
         Vector<Lesson> lessons = new Vector<>();
         // Создаем уроки для разных типов занятий

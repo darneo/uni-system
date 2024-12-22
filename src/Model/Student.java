@@ -41,4 +41,7 @@ public class Student extends User{
     public void removeCourse(Course pickedCourse) {
         groups.remove(pickedCourse);
     }
+    public Faculty getFaculty() {
+        return faculty;
+    }
 }

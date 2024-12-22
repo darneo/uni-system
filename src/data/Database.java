@@ -52,7 +52,7 @@
             Reports = getReports();
             Courses = getCourse();
             JournalDB = getSubscribers();
-    //        NewsDB = getNewsDB();
+            NewsDB = getNewsDB();
             CountOfbooks = getCountOfbooks();
             ListOFstudents = getListOfStudents();
             DeanDB = getDeans();

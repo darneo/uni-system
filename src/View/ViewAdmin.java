@@ -5,62 +5,79 @@ import Enum.*;
 import Model.*;
 import data.Database;
 
-import java.sql.SQLOutput;
-import java.util.*;
+import java.util.Scanner;
+import java.util.Vector;
 
 public class ViewAdmin {
     private static Language currentLanguage = Language.ENG;
     static Scanner scanner = new Scanner(System.in);
-    public static void chooseLanguage(){
+
+    public static void chooseLanguage() {
         System.out.println("Select your language / Выберите язык / Тілді таңдаңыз:");
         System.out.println("1. English");
         System.out.println("2. Русский");
         System.out.println("3. Қазақ тілі");
         int choice = scanner.nextInt();
-        if (choice == 1){
+        if (choice == 1) {
             currentLanguage = Language.ENG;
-        } else if(choice == 2){
+        } else if (choice == 2) {
             currentLanguage = Language.RU;
-        } else if(choice == 3){
+        } else if (choice == 3) {
             currentLanguage = Language.KZ;
         }
     }
-    public static void menu(){
+
+    public static void menu() {
         Scanner scan = new Scanner(System.in);
-        if (currentLanguage == Language.ENG){
-            System.out.println("Welcome to WSP!\n Select the option:");
+        if (currentLanguage == Language.ENG) {
+            System.out.println("Welcome to WSP!\nSelect the option:");
             System.out.println("1. News");
-            System.out.println("3. Chat");
-            System.out.println("4. Send request");
-            System.out.println("5. Add user");
-            System.out.println("6. Delete user");
-            System.out.println("7. view users");
+            System.out.println("2. Chat");
+            System.out.println("3. Send request");
+            System.out.println("4. Add user");
+            System.out.println("5. Delete user");
+            System.out.println("6. View users");
+            System.out.println("7. Change language");
+            System.out.println("8. Exit to Main Menu");
         } else if (currentLanguage == Language.RU) {
-            System.out.println("Добро пожаловать в WSP\n Выберите опцию:");
+            System.out.println("Добро пожаловать в WSP\nВыберите опцию:");
             System.out.println("1. Новости");
             System.out.println("2. Чат");
             System.out.println("3. Отправка запроса");
-        } else if (currentLanguage == Language.KZ){
-            System.out.println("WSP-ға қош келдіңіз\n Опцияны таңдаңыз:");
+            System.out.println("4. Добавить пользователя");
+            System.out.println("5. Удалить пользователя");
+            System.out.println("6. Посмотреть пользователей");
+            System.out.println("7. Сменить язык");
+            System.out.println("8. Вернуться в главное меню");
+        } else if (currentLanguage == Language.KZ) {
+            System.out.println("WSP-ға қош келдіңіз\nОпцияны таңдаңыз:");
             System.out.println("1. Жаңалықтар");
-            System.out.println("2,Чат");
+            System.out.println("2. Чат");
             System.out.println("3. Сұраныс жіберу");
+            System.out.println("4. Қолданушы қосу");
+            System.out.println("5. Қолданушыны жою");
+            System.out.println("6. Қолданушыларды көру");
+            System.out.println("7. Тілді өзгерту");
+            System.out.println("8. Негізгі мәзірге қайту");
         }
         int choice = scanner.nextInt();
-        if (choice == 1){
-
-        } else if(choice  == 2){
-
-        } else if (choice == 3){
-
-        } else if (choice == 4){
-
-        } else if (choice == 5){
+        if (choice == 1) {
+            // обработка новостей
+        } else if (choice == 2) {
+            // обработка чата
+        } else if (choice == 3) {
+            // обработка запроса
+        } else if (choice == 4) {
             addUser();
-        } else if (choice == 6){
+        } else if (choice == 5) {
             deleteUser();
-        } else if (choice == 7){
+        } else if (choice == 6) {
             viewUsers();
+        } else if (choice == 7) {
+            chooseLanguage();  // Смена языка
+            menu();  // Перезапуск меню после изменения языка
+        } else if (choice == 8) {
+            BaseView.welcome();  // Возвращение в главное меню
         }
     }
 
@@ -69,13 +86,29 @@ public class ViewAdmin {
 
         // Введение меню в зависимости от языка
         if (currentLanguage == Language.ENG) {
-            System.out.println("Welcome to WSP!\n Select your role:");
+            System.out.println("Welcome to WSP!\nSelect your role:");
             System.out.println("1. Teacher");
             System.out.println("2. Manager");
             System.out.println("3. Student");
             System.out.println("4. Librarian");
             System.out.println("5. Dean");
             System.out.println("6. Exit");
+        } else if (currentLanguage == Language.RU) {
+            System.out.println("Выберите роль:");
+            System.out.println("1. Учитель");
+            System.out.println("2. Менеджер");
+            System.out.println("3. Студент");
+            System.out.println("4. Библиотекарь");
+            System.out.println("5. Декан");
+            System.out.println("6. Выход");
+        } else if (currentLanguage == Language.KZ) {
+            System.out.println("Рөлді таңдаңыз:");
+            System.out.println("1. Мұғалім");
+            System.out.println("2. Менеджер");
+            System.out.println("3. Студент");
+            System.out.println("4. Кітапханашы");
+            System.out.println("5. Декан");
+            System.out.println("6. Шығу");
         }
 
         int option = scanner.nextInt();
@@ -159,6 +192,20 @@ public class ViewAdmin {
             System.out.println("4. Librarian");
             System.out.println("5. Dean");
             System.out.println("6. Back to menu");
+        } else if (currentLanguage == Language.RU) {
+            System.out.println("1. Учитель");
+            System.out.println("2. Менеджер");
+            System.out.println("3. Студент");
+            System.out.println("4. Библиотекарь");
+            System.out.println("5. Декан");
+            System.out.println("6. Вернуться в меню");
+        } else if (currentLanguage == Language.KZ) {
+            System.out.println("1. Мұғалім");
+            System.out.println("2. Менеджер");
+            System.out.println("3. Студент");
+            System.out.println("4. Кітапханашы");
+            System.out.println("5. Декан");
+            System.out.println("6. Мәзірге қайту");
         }
 
         int num = scanner.nextInt();
@@ -210,13 +257,8 @@ public class ViewAdmin {
                 }
             }
         } else if (num == 6) {
-            // Возвращаемся в главное меню
-            menu();
-            return;  // Прерываем текущий метод, чтобы не продолжать просмотр
-        } else {
-            System.out.println("Invalid choice. Please try again.");
-            viewUsers();  // Если выбор неправильный, снова вызываем метод
-            return;  // Прерываем текущий метод, чтобы не продолжать выполнение
+            menu();  // Возвращение в главное меню
+            return;
         }
 
         // Дополнительный выбор: снова посмотреть или вернуться в меню
@@ -229,15 +271,12 @@ public class ViewAdmin {
             int choice = scanner.nextInt();
 
             if (choice == 1) {
-                // Если выбрал продолжить просмотр, снова вызываем метод
                 validChoice = true;
                 viewUsers();
             } else if (choice == 2) {
-                // Если выбрал вернуться в меню, вызываем menu()
                 validChoice = true;
-                menu();
+                menu();  // Возвращение в главное меню
             } else {
-                // Если выбор неправильный, снова вызываем viewUsers
                 System.out.println("Invalid choice. Please try again.");
             }
         }
@@ -277,28 +316,11 @@ public class ViewAdmin {
             boolean result = UserController.deleteUser(username, userType);
             if (result) {
                 System.out.println("User deleted successfully!");
+                menu();
+                return;
             } else {
-                System.out.println("User not found or could not be deleted.");
-            }
-
-            // После успешного удаления или ошибки предлагается вернуться в меню
-            System.out.println("Do you want to:");
-            System.out.println("1. Delete another user");
-            System.out.println("2. Go back to the menu");
-
-            int userChoice = scanner.nextInt();
-            if (userChoice == 1) {
-                continue;  // Если пользователь хочет удалить другого, цикл продолжается
-            } else if (userChoice == 2) {
-                menu();  // Если выбирает вернуться в меню, вызываем меню
-                return;  // Прерываем выполнение метода deleteUser
-            } else {
-                System.out.println("Invalid choice. Returning to delete user.");
-                continue;  // Если неправильный выбор, снова запрашиваем действия
+                System.out.println("User not found.");
             }
         }
     }
-
-
-
 }

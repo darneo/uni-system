@@ -1,4 +1,5 @@
 package View;
+import Controller.NewsController;
 import uniUtil.*;
 import Enum.*;
 import Model.*;
@@ -64,7 +65,7 @@ public class ViewTeacher {
 
         // Обработка опций
         if (option == 1) {
-            // Действие для новостей
+            NewsController.viewNews(currentLanguage, myTeacher, UserType.TEACHER);
         } else if (option == 2) {
             // Действие для научных статей
         } else if (option == 3) {

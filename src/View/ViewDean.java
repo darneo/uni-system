@@ -1,4 +1,5 @@
 package View;
+import Controller.NewsController;
 import uniUtil.*;
 import Enum.*;
 import java.util.Scanner;
@@ -34,22 +35,19 @@ public class ViewDean {
             System.out.println("1. News");
             System.out.println("2. View complaints");
             System.out.println("3. View requests");
-            System.out.println("4. Research Projects");
-            System.out.println("5. Exit to Main Menu");
+            System.out.println("4. Exit to Main Menu");
         } else if (currentLanguage == Language.RU) {
             System.out.println("Добро пожаловать в WSP\n Выберите опцию:");
             System.out.println("1. Новости");
             System.out.println("2. Просмотр жалоб");
             System.out.println("3. Просмотр запросов");
-            System.out.println("4. Журнал научных статей");
-            System.out.println("5. Выход в главное меню");
+            System.out.println("4. Выход в главное меню");
         } else if (currentLanguage == Language.KZ){
             System.out.println("WSP-ға қош келдіңіз\n Опцияны таңдаңыз:");
             System.out.println("1. Жаңалықтар");
             System.out.println("2. Шағымдарды қарастыру");
             System.out.println("3. Сұраныстарды қарастыру");
-            System.out.println("4. Ғылыми мақалалар");
-            System.out.println("5. Негізгі мәзірге қайту");
+            System.out.println("4. Негізгі мәзірге қайту");
         }
 
         // Ввод опции пользователем
@@ -57,14 +55,12 @@ public class ViewDean {
 
         // Обработка опций
         if (option == 1) {
-            // Действие для новостей
+            NewsController.viewNews(currentLanguage, myDean, UserType.DEAN);
         } else if (option == 2) {
             // Действие для просмотра жалоб
         } else if (option == 3) {
             // Действие для просмотра запросов
         } else if (option == 4) {
-            // Действие для научных проектов
-        } else if (option == 5) {
             myDean = null;
             BaseView.welcome();// Возвращаем в главное меню
         }

@@ -101,31 +101,23 @@ BaseView {
                 // Вызываем соответствующее меню в зависимости от типа пользователя
                 if (fileName.equals("student.txt")){
                     Object obj = UserController.getUser(UserType.STUDENT, username);
-                    if(obj instanceof Student){
-                        ViewStudent.menu((Student) obj);
-                    }
+                    ViewStudent.menu((Student) obj);
                 } else if (fileName.equals("teacher.txt")) {
                     Object obj = UserController.getUser(UserType.TEACHER, username);
-                    if(obj instanceof Student){
-                        ViewTeacher.menu((Teacher) obj);
-                    }
+                    ViewTeacher.menu((Teacher) obj);
                 } else if (fileName.equals("manager.txt")) {
                     Object obj = UserController.getUser(UserType.MANAGER, username);
-                    if(obj instanceof Student){
-                        ViewManager.menu((Manager) obj);
-                    }
+                    ViewManager.menu((Manager) obj);
+
                 } else if (fileName.equals("admin")) {
                     ViewAdmin.menu();
                 } else if (fileName.equals("librarian.txt")) {
                     Object obj = UserController.getUser(UserType.LIBRARIAN, username);
-                    if(obj instanceof Student){
-                        ViewLibrarian.menu((Librarian) obj);
-                    }
+                    ViewLibrarian.menu((Librarian) obj);
+
                 } else if (fileName.equals("Dean.txt")) {
                     Object obj = UserController.getUser(UserType.DEAN, username);
-                    if(obj instanceof Student){
-                        ViewDean.menu((Dean) obj);
-                    }
+                    ViewDean.menu((Dean) obj);
                 }
             }
         }
