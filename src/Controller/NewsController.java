@@ -1,12 +1,12 @@
-package Controller;
-
-import uniUtil.*;
-import data.*;
-import java.util.*;
-import java.time.LocalDateTime;
-import Enum.*;
-import Model.*;
-
+//package Controller;
+//
+//import uniUtil.*;
+//import data.*;
+//import java.util.*;
+//import java.time.LocalDateTime;
+//import Enum.*;
+//import Model.*;
+//
 //public class NewsController {
 //    public static void acceptNewsRequest(Request request){
 //        News news = new News(request.getTitle(), LocalDateTime.now(),  request.getTopic(), request.getLevelImportance());
@@ -33,7 +33,7 @@ import Model.*;
 //                    : currentLanguage == Language.RU
 //                    ? "Нет доступных новостей."
 //                    : "Қолжетімді жаңалықтар жоқ.");
-//            showMenu(); // Возвращаемся в меню
+//            menu(); // Возвращаемся в меню
 //            return;
 //        }
 //

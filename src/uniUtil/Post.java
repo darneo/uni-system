@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import static sun.security.util.KnownOIDs.Title;
 
 public class Post implements Serializable {
     private static final long serialVersionUID = 1L;
