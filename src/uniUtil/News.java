@@ -10,6 +10,8 @@ public class News extends Post {
         super(topic, date, title);
         this.levelImportance = levelImportance;
     }
+
+    
     public String toString() {
         return "News{" +
                 "topic='" + getTopic() + '\'' +
