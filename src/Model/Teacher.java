@@ -19,6 +19,7 @@ public class Teacher extends Employee implements Serializable {
         this.faculty = faculty;
     }
 
+
     // Метод toString для конвертации degree и faculty в строку
     @Override
     public String toString() {
@@ -30,6 +31,10 @@ public class Teacher extends Employee implements Serializable {
     }
 
     // Геттеры для факультета и других полей (если необходимо)
+    public String getName(){
+        return super.getUsername();
+    }
+
     public Faculty getFaculty() {
         return faculty;
     }

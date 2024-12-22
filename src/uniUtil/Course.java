@@ -23,4 +23,11 @@ public class Course extends Transcript implements Serializable {
     public int getCredits(){
         return credits;
     }
+    public String getName(){return name;}
+    public String getDescription(){
+        return "Credits: " + credits + " , " + "Faculty: " + faculty;
+    }
+    public void addTeacher(Teacher teacher){
+        lecturers.add(teacher);
+    }
 }

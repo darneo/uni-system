@@ -27,4 +27,18 @@ public class Student extends User{
         }
         return null;
     }
+    public Vector<Transcript> getTranscripts() {
+        return allTranscripts;
+    }
+
+    public Vector<Lesson> getGroup(Course pickedCourse) {
+        return groups.get(pickedCourse);
+    }
+
+    public void addCourse(Course pickedCourse, Vector<Lesson> lessons) {
+        groups.put(pickedCourse, lessons);
+    }
+    public void removeCourse(Course pickedCourse) {
+        groups.remove(pickedCourse);
+    }
 }

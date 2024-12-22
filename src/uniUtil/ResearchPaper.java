@@ -18,3 +18,4 @@ public class ResearchPaper extends Post implements Serializable {
         authors.add(r);
     }
 }
+
