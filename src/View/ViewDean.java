@@ -2,8 +2,10 @@ package View;
 import uniUtil.*;
 import Enum.*;
 import java.util.Scanner;
+import Model.*;
 
 public class ViewDean {
+    private static Dean myDean = null;
     private static Language currentLanguage = Language.ENG;
 
     public static void chooseLanguage(){
@@ -22,8 +24,9 @@ public class ViewDean {
         }
     }
 
-    public static void menu(){
+    public static void menu(Dean dean){
         Scanner scan = new Scanner(System.in);
+        myDean = dean;
 
         // Печать меню в зависимости от выбранного языка
         if (currentLanguage == Language.ENG){
@@ -62,7 +65,8 @@ public class ViewDean {
         } else if (option == 4) {
             // Действие для научных проектов
         } else if (option == 5) {
-            BaseView.welcome(); // Возвращаем в главное меню
+            myDean = null;
+            BaseView.welcome();// Возвращаем в главное меню
         }
     }
 }

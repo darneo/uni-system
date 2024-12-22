@@ -11,15 +11,19 @@ import java.util.Vector;
 
 
 public class CourseController {
-    public void OpenReegistration(){
+    // Открыть регистрацию
+    public boolean openRegistration() {
         Database.isOpenRegistration = true;
+        return true;
     }
 
-    public void CloseReegistration(){
+    // Закрыть регистрацию
+    public boolean closeRegistration() {
         Database.isOpenRegistration = false;
+        return true;
     }
 
-    public void pickCourse(Student student, Course pickedCourse) {
+    public boolean pickCourse(Student student, Course pickedCourse) {
         if (Database.isOpenRegistration) {
             // Проверим, что курс существует
             Vector<Course> courses = Database.Courses;
@@ -27,8 +31,7 @@ public class CourseController {
                 // Проверяем, не проходил ли студент уже этот курс
                 for (Transcript transcript : student.getTranscripts()) {
                     if (transcript.getCourses().containsKey(pickedCourse)) {
-                        System.out.println("Студент уже прошел курс: " + pickedCourse.getName());
-                        return;
+                        return false; // Студент не может пройти курс снова
                     }
                 }
 
@@ -40,12 +43,12 @@ public class CourseController {
                 }
                 // Сохраняем изменения
                 Database.saveStudents();
-                System.out.println("Курс добавлен: " + pickedCourse.getName());
+                return true;
             } else {
-                System.out.println("Курс не найден.");
+                return false;
             }
         } else {
-            System.out.println("Регистрация на курсы закрыта.");
+            return false;
         }
     }
     private Vector<Lesson> createLessonsForCourse(Course course) {
@@ -64,14 +67,13 @@ public class CourseController {
         return lesson;
     }
 
-    public void dropCourse(Student student, Course course) {
+    public boolean dropCourse(Student student, Course course) {
         if (student.getTranscripts().contains(course)) {
             student.removeCourse(course);
-            // Сохраняем изменения
             Database.saveStudents();
-            System.out.println("Курс удален: " + course.getName());
+            return true;
         } else {
-            System.out.println("Студент не записан на этот курс.");
+            return false;
         }
     }
 
@@ -81,33 +83,36 @@ public class CourseController {
         }
     }
 
-    public void addCourse(Course newCourse){
+    public boolean addCourse(Course newCourse){
         Database.Courses.add(newCourse);
-        System.out.println("Course " + newCourse.getName() + " has been added.");
         Database.saveCourse();
+        return true;
     }
 
-    public void deleteCourse(Course courseToDelete){
-        if(Database.Courses.contains(courseToDelete)){
+
+    // Удалить курс
+    public boolean deleteCourse(Course courseToDelete) {
+        if (Database.Courses.contains(courseToDelete)) {
             Database.Courses.remove(courseToDelete);
-            System.out.println("Course " + courseToDelete.getName() + " has been deleted.");
             Database.saveCourse();
-        }else{
-            System.out.println("Course " + courseToDelete.getName() + " does not exist.");
+            return true;
+        } else {
+            return false;
         }
     }
 
     public void submitRegistration(Student student){
-        
+
     }
 
-    public void addTeacher(Course course, Teacher teacher){
-        if(course != null && teacher != null){
+    // Добавить преподавателя к курсу
+    public boolean addTeacher(Course course, Teacher teacher) {
+        if (course != null && teacher != null) {
             course.addTeacher(teacher);
-            System.out.println(teacher.getName() + " has been assigned to the course: " + course.getName());
             Database.saveCourse();
+            return true;
         } else {
-            System.out.println("Error: Teacher or Course is null.");
+            return false;
         }
     }
 }

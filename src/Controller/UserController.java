@@ -61,6 +61,43 @@ public class UserController {
         }
     }
 
+    public static User getUser(UserType type, String username){
+        switch (type) {
+            case TEACHER:
+                 for(Teacher teacher : Database.TeacherDB){
+                     if(teacher.getUsername().equals(username)){
+                         return (User)teacher;
+                     }
+                 }
+            case STUDENT:
+                for(Student student : Database.StudentDB){
+                    if(student.getUsername().equals(username)){
+                        return (User)student;
+                    }
+                }
+            case MANAGER:
+                for(Manager manager : Database.ManagerDB){
+                    if(manager.getUsername().equals(username)){
+                        return (User)manager;
+                    }
+                }
+            case LIBRARIAN:
+                for(Librarian librarian : Database.LibrarianDB){
+                    if(librarian.getUsername().equals(username)){
+                        return (User)librarian;
+                    }
+                }
+            case DEAN:
+                for(Dean dean : Database.DeanDB){
+                    if(dean.getUsername().equals(username)){
+                        return (User)dean;
+                    }
+                }
+            default:
+                return null;
+        }
+    }
+
     // Метод для авторизации пользователя
     public static boolean authorize(String fileName, String username, String password) {
         switch (fileName) {

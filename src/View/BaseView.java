@@ -6,7 +6,8 @@ import data.Database;
 
 import java.util.Scanner;
 
-public class BaseView {
+public class
+BaseView {
     private static Language currentLanguage = Language.ENG;
     static Scanner scan = new Scanner(System.in);
 
@@ -98,18 +99,33 @@ public class BaseView {
                 welcome();  // Перезапуск авторизации
             } else {
                 // Вызываем соответствующее меню в зависимости от типа пользователя
-                if (fileName.equals("student.txt")) {
-                    ViewStudent.menu();
+                if (fileName.equals("student.txt")){
+                    Object obj = UserController.getUser(UserType.STUDENT, username);
+                    if(obj instanceof Student){
+                        ViewStudent.menu((Student) obj);
+                    }
                 } else if (fileName.equals("teacher.txt")) {
-                    ViewTeacher.menu();
+                    Object obj = UserController.getUser(UserType.TEACHER, username);
+                    if(obj instanceof Student){
+                        ViewTeacher.menu((Teacher) obj);
+                    }
                 } else if (fileName.equals("manager.txt")) {
-                    ViewManager.menu();
+                    Object obj = UserController.getUser(UserType.MANAGER, username);
+                    if(obj instanceof Student){
+                        ViewManager.menu((Manager) obj);
+                    }
                 } else if (fileName.equals("admin")) {
                     ViewAdmin.menu();
                 } else if (fileName.equals("librarian.txt")) {
-                    ViewLibrarian.menu();  // Предполагаем, что ViewLibrarian существует
+                    Object obj = UserController.getUser(UserType.LIBRARIAN, username);
+                    if(obj instanceof Student){
+                        ViewLibrarian.menu((Librarian) obj);
+                    }
                 } else if (fileName.equals("Dean.txt")) {
-                    ViewDean.menu();  // Предполагаем, что ViewDean существует
+                    Object obj = UserController.getUser(UserType.DEAN, username);
+                    if(obj instanceof Student){
+                        ViewDean.menu((Dean) obj);
+                    }
                 }
             }
         }

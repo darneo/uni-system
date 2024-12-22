@@ -1,19 +1,22 @@
 package uniUtil;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import static sun.security.util.KnownOIDs.Title;
 
 public class Post implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String Topic;
-    private Date date;
-    private String Title;
-    public Post(String topic, Date date, String title) {
-        this.Topic = topic;
+    private String topic;
+    private LocalDateTime date;
+    private String title;
+    public Post(String title, LocalDateTime date, String topic) {
+        this.topic = topic;
         this.date = date;
-        this.Title = title;
+        this.title = title;
     }
-    public String getTopic() { return Topic; }
-    public Date getDate() { return date; }
-    public String getTitle() { return Title; }
+    public String getTopic() { return topic; }
+    public LocalDateTime getDate() { return date; }
+    public String getTitle() { return title; }
 }

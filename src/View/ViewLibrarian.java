@@ -3,9 +3,10 @@ import uniUtil.*;
 import Enum.*;
 
 import java.util.Scanner;
-
+import Model.*;
 public class ViewLibrarian {
     private static Language currentLanguage = Language.ENG;
+    private static Librarian myLibrarian = null;
 
     public static void chooseLanguage(){
         Scanner scan = new Scanner(System.in);
@@ -23,8 +24,9 @@ public class ViewLibrarian {
         }
     }
 
-    public static void menu(){
+    public static void menu(Librarian librarian){
         Scanner scan = new Scanner(System.in);
+        myLibrarian = librarian;
 
         // Печать меню в зависимости от выбранного языка
         if (currentLanguage == Language.ENG){
@@ -58,6 +60,7 @@ public class ViewLibrarian {
         } else if (option == 3) {
             // Действие для списка свободных книг
         } else if (option == 4) {
+            librarian = null;
             BaseView.welcome(); // Возвращаем в главное меню
         }
     }

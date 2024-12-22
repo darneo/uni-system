@@ -1,11 +1,16 @@
 package View;
+import Model.Student;
 import uniUtil.*;
 import Enum.*;
+import Controller.*;
+import data.Database;
+import Model.*;
 
 import java.util.Scanner;
 
 public class ViewStudent {
     private static Language currentLanguage = Language.ENG;
+    private static Student myStudent = null;
 
     public static void chooseLanguage(){
         Scanner scan = new Scanner(System.in);
@@ -23,8 +28,9 @@ public class ViewStudent {
         }
     }
 
-    public static void menu(){
+    public static void menu(Student student){
         Scanner scan = new Scanner(System.in);
+        myStudent = student;
 
         // Печать меню в зависимости от выбранного языка
         if (currentLanguage == Language.ENG){
@@ -73,7 +79,72 @@ public class ViewStudent {
         } else if (option == 6) {
             // Действие для взятия книги из библиотеки
         } else if (option == 7) {
+            student = null;
             BaseView.welcome(); // Возвращаем в главное меню
         }
     }
+    private static void handleCourseRegistration() {
+        CourseController courseController = new CourseController();
+        Scanner scan = new Scanner(System.in);
+
+        if (Database.isOpenRegistration) {
+            if (currentLanguage == Language.ENG) {
+                System.out.println("Registration is open. Please enter the course name:");
+            } else if (currentLanguage == Language.RU) {
+                System.out.println("Регистрация открыта. Введите название курса:");
+            } else if (currentLanguage == Language.KZ) {
+                System.out.println("Тіркеу ашық. Курстың атауын енгізіңіз:");
+            }
+
+            String courseName = scan.nextLine();
+            Course pickedCourse = null;
+
+            // Поиск курса по имени
+            for (Course course : Database.Courses) {
+                if (course.getName().equalsIgnoreCase(courseName)) {
+                    pickedCourse = course;
+                    break;
+                }
+            }
+
+            if (pickedCourse != null) {
+                // Используем текущего студента из базы данных
+                boolean success = courseController.pickCourse(ОСЫ ЖЕРГЕ, pickedCourse);
+                if (success) {
+                    if (currentLanguage == Language.ENG) {
+                        System.out.println("You have successfully registered for the course.");
+                    } else if (currentLanguage == Language.RU) {
+                        System.out.println("Вы успешно зарегистрировались на курс.");
+                    } else if (currentLanguage == Language.KZ) {
+                        System.out.println("Сіз курсқа сәтті тіркелдіңіз.");
+                    }
+                } else {
+                    if (currentLanguage == Language.ENG) {
+                        System.out.println("Registration failed. You may have already completed this course.");
+                    } else if (currentLanguage == Language.RU) {
+                        System.out.println("Регистрация не удалась. Возможно, вы уже прошли этот курс.");
+                    } else if (currentLanguage == Language.KZ) {
+                        System.out.println("Тіркелу сәтсіз аяқталды. Мүмкін сіз бұл курсты бұрыннан өтіп қойған боларсыз.");
+                    }
+                }
+            } else {
+                if (currentLanguage == Language.ENG) {
+                    System.out.println("Course not found. Please check the name and try again.");
+                } else if (currentLanguage == Language.RU) {
+                    System.out.println("Курс не найден. Проверьте название и попробуйте снова.");
+                } else if (currentLanguage == Language.KZ) {
+                    System.out.println("Курс табылмады. Атауын тексеріп, қайтадан көріңіз.");
+                }
+            }
+        } else {
+            if (currentLanguage == Language.ENG) {
+                System.out.println("Registration is currently closed.");
+            } else if (currentLanguage == Language.RU) {
+                System.out.println("Регистрация в данный момент закрыта.");
+            } else if (currentLanguage == Language.KZ) {
+                System.out.println("Қазіргі уақытта тіркелу жабық.");
+            }
+        }
+    }
+
 }

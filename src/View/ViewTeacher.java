@@ -1,11 +1,13 @@
 package View;
 import uniUtil.*;
 import Enum.*;
+import Model.*;
 
 import java.util.Scanner;
 
 public class ViewTeacher {
     private static Language currentLanguage = Language.ENG; // по умолчанию
+    private static Teacher myTeacher = null;
 
     public static void chooseLanguage(){
         Scanner scan = new Scanner(System.in);
@@ -24,9 +26,9 @@ public class ViewTeacher {
         }
     }
 
-    public static void menu(){
+    public static void menu(Teacher teacher){
         Scanner scan = new Scanner(System.in);
-
+        myTeacher = teacher;
         // Печать меню в зависимости от выбранного языка
         if (currentLanguage == Language.ENG){
             System.out.println("Welcome to WSP!\n Select the option:");
@@ -74,6 +76,7 @@ public class ViewTeacher {
         } else if (option == 6) {
             // Действие для отправки запроса
         } else if (option == 7) {
+            myTeacher = null;
             BaseView.welcome(); // Возвращаем в главное меню
         }
     }
