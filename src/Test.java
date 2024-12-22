@@ -6,10 +6,11 @@ import Enum.*;
 
 import java.util.Vector;
 import Model.*;
-import data.Database;
+import data.*;
 import Controller.*;
+import uniUtil.*;
+
+import static data.Database.*;
+
 public class Test {
-    public static void main(String[] args) {
-        Database.saveAll();
-    }
 }

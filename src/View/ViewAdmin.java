@@ -58,7 +58,7 @@ public class ViewAdmin {
         } else if (choice == 5){
             addUser();
         } else if (choice == 6){
-
+            deleteUser();
         } else if (choice == 7){
             viewUsers();
         }
@@ -239,6 +239,62 @@ public class ViewAdmin {
             } else {
                 // Если выбор неправильный, снова вызываем viewUsers
                 System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    public static void deleteUser() {
+        scanner.nextLine(); // Очистка буфера
+
+        while (true) {
+            // Начинаем бесконечный цикл, который будет повторяться, пока не введен правильный выбор
+            System.out.print("Enter username to delete: ");
+            String username = scanner.nextLine();
+
+            System.out.println("Select the user type to delete:");
+            System.out.println("1. Teacher");
+            System.out.println("2. Manager");
+            System.out.println("3. Student");
+            System.out.println("4. Librarian");
+            System.out.println("5. Dean");
+
+            int choice = scanner.nextInt();
+
+            UserType userType = null;
+
+            switch (choice) {
+                case 1 -> userType = UserType.TEACHER;
+                case 2 -> userType = UserType.MANAGER;
+                case 3 -> userType = UserType.STUDENT;
+                case 4 -> userType = UserType.LIBRARIAN;
+                case 5 -> userType = UserType.DEAN;
+                default -> {
+                    System.out.println("Invalid choice. Please try again.");
+                    continue;  // Если выбор неправильный, переходим к следующей итерации цикла
+                }
+            }
+
+            boolean result = UserController.deleteUser(username, userType);
+            if (result) {
+                System.out.println("User deleted successfully!");
+            } else {
+                System.out.println("User not found or could not be deleted.");
+            }
+
+            // После успешного удаления или ошибки предлагается вернуться в меню
+            System.out.println("Do you want to:");
+            System.out.println("1. Delete another user");
+            System.out.println("2. Go back to the menu");
+
+            int userChoice = scanner.nextInt();
+            if (userChoice == 1) {
+                continue;  // Если пользователь хочет удалить другого, цикл продолжается
+            } else if (userChoice == 2) {
+                menu();  // Если выбирает вернуться в меню, вызываем меню
+                return;  // Прерываем выполнение метода deleteUser
+            } else {
+                System.out.println("Invalid choice. Returning to delete user.");
+                continue;  // Если неправильный выбор, снова запрашиваем действия
             }
         }
     }
