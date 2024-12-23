@@ -6,6 +6,7 @@ public abstract class User implements Serializable {
     private String username;
     private String password;
 
+
     // Конструктор, принимающий только username и password
     public User(String username, String password) {
         this.username = username;
