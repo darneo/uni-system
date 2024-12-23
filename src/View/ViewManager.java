@@ -64,7 +64,7 @@ public class ViewManager {
         if (option == 1) {
             manageNewsMenu();
         } else if (option == 2) {
-            // Действие для просмотра подписанных запросов
+            viewSignedRequests();
         } else if (option == 3) {
             // Действие для управления регистрацией
             manageRegistration(courseController);
@@ -352,4 +352,64 @@ public class ViewManager {
             System.out.println("Жаңалық сәтті қосылды!");
         }
     }
+    private static void viewSignedRequests() {
+        Scanner scan = new Scanner(System.in);
+
+        // Проверяем, есть ли подписанные запросы
+        int totalRequests = Database.AcceptedEmployeeRequests.size();
+
+        if (totalRequests == 0) {
+            // Если запросов нет, выводим сообщение и возвращаем в меню
+            System.out.println(currentLanguage == Language.ENG ? "No signed requests." :
+                    currentLanguage == Language.RU ? "Нет подписанных запросов." :
+                            "Қол қойылған сұраныстар жоқ.");
+            menu(myManager); // Возврат в главное меню
+            return;
+        }
+
+        // Разбиваем на страницы
+        int pageSize = 5; // Количество запросов на одной странице
+        int totalPages = (int) Math.ceil((double) totalRequests / pageSize);
+
+        int currentPage = 1; // Начинаем с первой страницы
+        while (true) {
+            // Отображаем текущую страницу
+            System.out.println(currentLanguage == Language.ENG ? "Viewing page " + currentPage + " of " + totalPages :
+                    currentLanguage == Language.RU ? "Просмотр страницы " + currentPage + " из " + totalPages :
+                            "Бет " + currentPage + " из " + totalPages);
+
+            int start = (currentPage - 1) * pageSize;
+            int end = Math.min(start + pageSize, totalRequests);
+
+            // Печать запросов на текущей странице
+            for (int i = start; i < end; i++) {
+                Request req = Database.AcceptedEmployeeRequests.get(i);
+                System.out.println((i + 1) + ". " + req.toString()); // Или другой формат вывода запроса
+            }
+
+            // Запрос пользователя для перехода
+            System.out.println(currentLanguage == Language.ENG ?
+                    "1. Next page\n2. Previous page\n3. Back to menu" :
+                    currentLanguage == Language.RU ?
+                            "1. Следующая страница\n2. Предыдущая страница\n3. Назад в меню" :
+                            "1. Келесі бет\n2. Алдыңғы бет\n3. Мәзірге оралу");
+
+            int option = scan.nextInt();
+
+            if (option == 1 && currentPage < totalPages) {
+                currentPage++; // Переходим на следующую страницу
+            } else if (option == 2 && currentPage > 1) {
+                currentPage--; // Переходим на предыдущую страницу
+            } else if (option == 3) {
+                menu(myManager); // Возврат в главное меню
+                break;
+            } else {
+                System.out.println(currentLanguage == Language.ENG ? "Invalid option. Try again." :
+                        currentLanguage == Language.RU ? "Неверный вариант. Попробуйте еще раз." :
+                                "Қате нұсқа. Қайта көріңіз.");
+            }
+        }
+    }
+
+
 }

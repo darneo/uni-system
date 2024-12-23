@@ -23,10 +23,7 @@ public class Database implements Serializable {
     public static HashMap<Student, Vector<Book>> ListOFstudents;
     public static Vector<Dean> DeanDB;
     public static Vector<Librarian> LibrarianDB;
-
-    // Вектор всех запросов сотрудников
     public static Vector<Request> EmployeeRequestDB;
-    // Вектор принятых запросов сотрудников
     public static Vector<Request> AcceptedEmployeeRequests;
 
     private static final String path = "C:\\Users\\Admin\\IdeaProjects\\wsp-system\\src\\data\\files\\";
@@ -243,4 +240,21 @@ public class Database implements Serializable {
         saveEmployeeRequests();  // Сохраняем все запросы сотрудников
         saveAcceptedEmployeeRequests();  // Сохраняем принятые запросы сотрудников
     }
+    public static void initializeDatabase() {
+        NewsDB = new Vector<>();
+        JournalDB = new HashMap<>();
+        Courses = new Vector<>();
+        isOpenRegistration = false;
+        ManagerDB = new Vector<>();
+        TeacherDB = new Vector<>();
+        StudentDB = new Vector<>();
+        Reports = new Vector<>();
+        CountOfbooks = new HashMap<>();
+        ListOFstudents = new HashMap<>();
+        DeanDB = new Vector<>();
+        LibrarianDB = new Vector<>();
+        EmployeeRequestDB = new Vector<>();
+        AcceptedEmployeeRequests = new Vector<>();
+    }
+
 }
