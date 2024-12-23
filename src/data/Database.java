@@ -18,7 +18,7 @@ public class Database implements Serializable {
     public static Vector<Manager> ManagerDB;
     public static Vector<Teacher> TeacherDB;
     public static Vector<Student> StudentDB;
-    public static Vector<Report> Reports;
+    public static Vector<Report> ReportDB;
     public static HashMap<Book, Integer> CountOfbooks;
     public static HashMap<Student, Vector<Book>> ListOFstudents;
     public static Vector<Dean> DeanDB;
@@ -46,7 +46,7 @@ public class Database implements Serializable {
         TeacherDB = getTeachers();
         StudentDB = getStudents();
         ManagerDB = getManagers();
-        Reports = getReports();
+        ReportDB = getReports();
         Courses = getCourse();
         JournalDB = getSubscribers();
         NewsDB = getNewsDB();
@@ -138,7 +138,7 @@ public class Database implements Serializable {
     }
 
     public static Boolean saveReports() {
-        return ReaderWriter.serialize(Reports, path + reportPath);
+        return ReaderWriter.serialize(ReportDB, path + reportPath);
     }
 
     public static Vector<Course> getCourse() {
@@ -248,7 +248,7 @@ public class Database implements Serializable {
         ManagerDB = new Vector<>();
         TeacherDB = new Vector<>();
         StudentDB = new Vector<>();
-        Reports = new Vector<>();
+        ReportDB = new Vector<>();
         CountOfbooks = new HashMap<>();
         ListOFstudents = new HashMap<>();
         DeanDB = new Vector<>();

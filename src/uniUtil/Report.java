@@ -8,8 +8,8 @@ public class Report extends Post implements Serializable {
     private static final long serialVersionUID = 1L;
     private Urgencylevel urgencylevel;
 
-    public Report(String topic, Urgencylevel urgencylevel) {
-        super("Complaint Report", LocalDateTime.now(), topic);
+    public Report(String title, LocalDateTime date, String topic, Urgencylevel urgencylevel) {
+        super(title, LocalDateTime.now(), topic);
         this.urgencylevel = urgencylevel;
     }
 

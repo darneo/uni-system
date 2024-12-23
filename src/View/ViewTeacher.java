@@ -74,7 +74,7 @@ public class ViewTeacher {
         } else if (option == 2) {
             // Действие для научных статей
         } else if (option == 3) {
-            // Действие для отправки жалобы
+            handleSendReport();
         } else if (option == 4) {
             // Действие для списка студентов
         } else if (option == 5) {
@@ -204,4 +204,77 @@ public class ViewTeacher {
             System.out.println("Қате опция. Қайталап көріңіз.");
         }
     }
+
+    private static void handleSendReport() {
+        Scanner scan = new Scanner(System.in);
+
+        // Вывод текста в зависимости от языка
+        if (currentLanguage == Language.ENG) {
+            System.out.println("Please enter the topic of the report:");
+        } else if (currentLanguage == Language.RU) {
+            System.out.println("Введите тему репорта:");
+        } else if (currentLanguage == Language.KZ) {
+            System.out.println("Репорт тақырыбын енгізіңіз:");
+        }
+
+        // Ввод темы репорта
+        String topic = scan.nextLine();
+
+        if (currentLanguage == Language.ENG) {
+            System.out.println("Please enter the details of the report:");
+        } else if (currentLanguage == Language.RU) {
+            System.out.println("Введите детали репорта:");
+        } else if (currentLanguage == Language.KZ) {
+            System.out.println("Репорт мәліметтерін енгізіңіз:");
+        }
+
+        // Ввод деталей репорта
+        String details = scan.nextLine();
+
+        // Выбор уровня срочности с помощью switch
+        Urgencylevel urgencyLevel = null;
+        if (currentLanguage == Language.ENG) {
+            System.out.println("Select the urgency level (1. Low, 2. Medium, 3. High):");
+        } else if (currentLanguage == Language.RU) {
+            System.out.println("Выберите уровень срочности (1. Низкий, 2. Средний, 3. Высокий):");
+        } else if (currentLanguage == Language.KZ) {
+            System.out.println("Срочность деңгейін таңдаңыз (1. Төмен, 2. Орташа, 3. Жоғары):");
+        }
+
+        // Ввод уровня срочности
+        int urgencyChoice = scan.nextInt();
+        switch (urgencyChoice) {
+            case 1:
+                urgencyLevel = Urgencylevel.LOW;
+                break;
+            case 2:
+                urgencyLevel = Urgencylevel.MEDIUM;
+                break;
+            case 3:
+                urgencyLevel = Urgencylevel.HIGH;
+                break;
+            default:
+                System.out.println("Invalid choice! Setting urgency to LOW.");
+                urgencyLevel = Urgencylevel.LOW;
+        }
+
+        // Создаем объект Report
+        Report newReport = new Report(topic, LocalDateTime.now(), details, urgencyLevel);
+        // Сохраняем репорт через ReportController
+        RequestController.addReport(newReport);
+
+        // Выводим сообщение об успешной отправке репорта
+        if (currentLanguage == Language.ENG) {
+            System.out.println("Your report has been sent: " + details);
+        } else if (currentLanguage == Language.RU) {
+            System.out.println("Ваш репорт был отправлен: " + details);
+        } else if (currentLanguage == Language.KZ) {
+            System.out.println("Сіздің репортыңыз жіберілді: " + details);
+        }
+
+        // Возврат в меню
+        System.out.println("\nReturning to the main menu...");
+        menu(myTeacher);
+    }
+
 }

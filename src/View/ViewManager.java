@@ -411,5 +411,115 @@ public class ViewManager {
         }
     }
 
+    private static void createCourse(CourseController courseController) {
+        Scanner scan = new Scanner(System.in);
+
+        while (true) {
+            // Печать меню для создания курса
+            if (currentLanguage == Language.ENG) {
+                System.out.println("Enter the course name:");
+            } else if (currentLanguage == Language.RU) {
+                System.out.println("Введите название курса:");
+            } else if (currentLanguage == Language.KZ) {
+                System.out.println("Курстың атын енгізіңіз:");
+            }
+
+            String courseName = scan.nextLine();
+
+            // Ввод семестра
+            if (currentLanguage == Language.ENG) {
+                System.out.println("Enter the semester number:");
+            } else if (currentLanguage == Language.RU) {
+                System.out.println("Введите номер семестра:");
+            } else if (currentLanguage == Language.KZ) {
+                System.out.println("Семестр нөмірін енгізіңіз:");
+            }
+            int semester = scan.nextInt();
+
+            // Ввод количества кредитов
+            if (currentLanguage == Language.ENG) {
+                System.out.println("Enter the number of credits:");
+            } else if (currentLanguage == Language.RU) {
+                System.out.println("Введите количество кредитов:");
+            } else if (currentLanguage == Language.KZ) {
+                System.out.println("Кредиттер санын енгізіңіз:");
+            }
+            int credits = scan.nextInt();
+            scan.nextLine();  // Поглощение символа новой строки
+
+            // Выбор факультета с использованием switch
+            if (currentLanguage == Language.ENG) {
+                System.out.println("Choose the faculty:");
+            } else if (currentLanguage == Language.RU) {
+                System.out.println("Выберите факультет:");
+            } else if (currentLanguage == Language.KZ) {
+                System.out.println("Факультетті таңдаңыз:");
+            }
+
+            System.out.println("1. Faculty of Computer Science");
+            System.out.println("2. Faculty of Engineering");
+            System.out.println("3. Faculty of Business");
+            System.out.println("4. Faculty of Arts");
+
+            int facultyChoice = scan.nextInt();
+            Faculty selectedFaculty = null;
+
+            switch (facultyChoice) {
+                case 1:
+                    selectedFaculty = Faculty.BS;
+                    break;
+                case 2:
+                    selectedFaculty = Faculty.SITE;
+                    break;
+                case 3:
+                    selectedFaculty = Faculty.KMA;
+                    break;
+                default:
+                    if (currentLanguage == Language.ENG) {
+                        System.out.println("Invalid faculty choice.");
+                    } else if (currentLanguage == Language.RU) {
+                        System.out.println("Неверный выбор факультета.");
+                    } else if (currentLanguage == Language.KZ) {
+                        System.out.println("Қате факультет таңдауы.");
+                    }
+                    continue;
+            }
+
+            // Создание нового курса
+            Course newCourse = new Course(semester, courseName, credits, selectedFaculty);
+            courseController.addCourse(newCourse);
+
+            if (currentLanguage == Language.ENG) {
+                System.out.println("Course " + newCourse.getName() + " created successfully.");
+            } else if (currentLanguage == Language.RU) {
+                System.out.println("Курс " + newCourse.getName() + " успешно создан.");
+            } else if (currentLanguage == Language.KZ) {
+                System.out.println("Курс " + newCourse.getName() + " сәтті құрылды.");
+            }
+
+            // Запрос о продолжении или выходе в главное меню
+            System.out.println(currentLanguage == Language.ENG
+                    ? "What would you like to do next? (1 - Create another course, 2 - Go back to the main menu)"
+                    : currentLanguage == Language.RU
+                    ? "Что вы хотите делать дальше? (1 - Создать еще один курс, 2 - Вернуться в главное меню)"
+                    : "Келесі не істеуді қалайсыз? (1 - Тағы курс жасау, 2 - Бас мәзірге оралу)");
+
+            int choice = scan.nextInt();
+            if (choice == 1) {
+                continue; // Возврат к созданию нового курса
+            } else if (choice == 2) {
+                menu(myManager); // Возврат в главное меню
+                break;
+            } else {
+                // Если ввод неверный, выводим сообщение и повторяем запрос
+                System.out.println(currentLanguage == Language.ENG
+                        ? "Invalid choice. Please try again."
+                        : currentLanguage == Language.RU
+                        ? "Неверный выбор. Попробуйте снова."
+                        : "Қате таңдау. Қайтадан таңдаңыз.");
+            }
+        }
+    }
+
 
 }

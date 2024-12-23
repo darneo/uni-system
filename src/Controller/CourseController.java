@@ -46,12 +46,6 @@ public class CourseController {
                     return false; // Нельзя добавить курс, превышающий лимит кредитов
                 }
 
-                // Получаем или создаем группу для курса
-                Vector<Lesson> lessons = student.getGroup(pickedCourse);
-                if (lessons == null) {
-                    lessons = createLessonsForCourse(pickedCourse);
-                    student.addCourse(pickedCourse, lessons); // Добавляем курс с уроками
-                }
                 // Сохраняем изменения
                 Database.saveStudents();
                 return true;
@@ -63,21 +57,6 @@ public class CourseController {
         }
     }
 
-    private Vector<Lesson> createLessonsForCourse(Course course) {
-        Vector<Lesson> lessons = new Vector<>();
-        // Создаем уроки для разных типов занятий
-        lessons.add(createLesson(course, LessonType.LECTURE)); // Лекция
-        lessons.add(createLesson(course, LessonType.PRACTICE)); // Практика
-        lessons.add(createLesson(course, LessonType.LABORATORY)); // Лабораторная работа
-
-        return lessons;
-    }
-    private Lesson createLesson(Course course, LessonType lessonType) {
-        Lesson lesson = new Lesson();
-        lesson.setCourse(course);
-        lesson.setLessonType(lessonType);
-        return lesson;
-    }
 
     public boolean dropCourse(Student student, Course course) {
         if (student.getTranscripts().contains(course)) {
