@@ -167,6 +167,7 @@ public class ViewStudent {
             } else if (currentLanguage == Language.KZ) {
                 System.out.println("Студент жүйеге кірген жоқ.");
             }
+            menu(myStudent); // Возвращение в меню
             return;
         }
 
@@ -180,6 +181,7 @@ public class ViewStudent {
             } else if (currentLanguage == Language.KZ) {
                 System.out.println("Бұл студент үшін транскрипттер табылмады.");
             }
+            menu(myStudent); // Возвращение в меню
             return;
         }
 
@@ -210,7 +212,11 @@ public class ViewStudent {
             System.out.println("Жалпы кредит саны: " + totalCredits);
             System.out.println("GPA: " + String.format("%.2f", gpa));
         }
+
+        // После отображения транскрипта возвращение в меню
+        menu(myStudent);
     }
+
 
 
 
@@ -265,6 +271,8 @@ public class ViewStudent {
                 } else if (currentLanguage == Language.KZ) {
                     System.out.println("Курс табылмады. Атауын тексеріп, қайтадан көріңіз.");
                 }
+                menu(myStudent); // Возвращение в меню
+                return;
             }
         } else {
             if (currentLanguage == Language.ENG) {
@@ -274,6 +282,7 @@ public class ViewStudent {
             } else if (currentLanguage == Language.KZ) {
                 System.out.println("Қазіргі уақытта тіркелу жабық.");
             }
+            menu(myStudent); // Возвращение в меню
         }
     }
 

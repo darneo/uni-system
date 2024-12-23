@@ -8,18 +8,17 @@ import Enum.*;
 public class Request extends Post implements Serializable {
     private static final long serialVersionUID = 1L;
     private Boolean isSigned = false;
-    private LevelImportance levelImportance;
 
-    public Request(String topic, LocalDateTime date, String title, LevelImportance levelImportance) {
-        super(topic, date, title);
-        this.levelImportance = levelImportance;
+    public Request(String title, LocalDateTime date, String topic){
+        super(title, date, topic);
     }
 
     public void signTheRequest(){
+
         this.isSigned = true;
     }
 
-    public LevelImportance getLevelImportance(){
-        return levelImportance;
+    public Boolean getIsSigned() {
+        return isSigned;
     }
 }

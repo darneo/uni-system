@@ -1,9 +1,12 @@
 package Model;
+
 import Enum.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Vector;
 import uniUtil.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Teacher extends Employee implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -12,13 +15,16 @@ public class Teacher extends Employee implements Serializable {
     private HashMap<Lesson, Vector<Student>> listOfStudents;
     private Faculty faculty; // факультет как перечисление
 
+    // Добавляем поле для хранения запросов
+    private List<Request> requests;
+
     // Конструктор, принимающий все параметры
     public Teacher(String username, String password, Faculty faculty, Degree degree) {
         super(username, password); // передаем только username и password в родительский класс
         this.degree = degree;
         this.faculty = faculty;
+        this.requests = new ArrayList<>(); // Инициализация списка запросов
     }
-
 
     // Метод toString для конвертации degree и faculty в строку
     @Override
@@ -31,7 +37,7 @@ public class Teacher extends Employee implements Serializable {
     }
 
     // Геттеры для факультета и других полей (если необходимо)
-    public String getName(){
+    public String getName() {
         return super.getUsername();
     }
 
@@ -49,5 +55,15 @@ public class Teacher extends Employee implements Serializable {
 
     public HashMap<Lesson, Vector<Student>> getListOfStudents() {
         return listOfStudents;
+    }
+
+    // Геттер для списка запросов
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    // Метод для добавления запроса
+    public void addRequest(Request request) {
+        this.requests.add(request);
     }
 }

@@ -1,16 +1,18 @@
 package View;
+
 import Controller.NewsController;
+import Controller.RequestController; // Добавим контроллер для обработки запросов
 import uniUtil.*;
 import Enum.*;
 import Model.*;
-
 import java.util.Scanner;
+import java.time.LocalDateTime;
 
 public class ViewTeacher {
     private static Language currentLanguage = Language.ENG; // по умолчанию
     private static Teacher myTeacher = null;
 
-    public static void chooseLanguage(){
+    public static void chooseLanguage() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Select your language / Выберите язык / Тілді таңдаңыз:");
         System.out.println("1. English");
@@ -18,20 +20,20 @@ public class ViewTeacher {
         System.out.println("3. Қазақ тілі");
         int choice = scan.nextInt();
 
-        if (choice == 1){
+        if (choice == 1) {
             currentLanguage = Language.ENG;
-        } else if(choice == 2){
+        } else if (choice == 2) {
             currentLanguage = Language.RU;
-        } else if(choice == 3){
+        } else if (choice == 3) {
             currentLanguage = Language.KZ;
         }
     }
 
-    public static void menu(Teacher teacher){
+    public static void menu(Teacher teacher) {
         Scanner scan = new Scanner(System.in);
         myTeacher = teacher;
         // Печать меню в зависимости от выбранного языка
-        if (currentLanguage == Language.ENG){
+        if (currentLanguage == Language.ENG) {
             System.out.println("Welcome to WSP!\n Select the option:");
             System.out.println("1. News");
             System.out.println("2. Research Projects");
@@ -39,7 +41,8 @@ public class ViewTeacher {
             System.out.println("4. List of students");
             System.out.println("5. Chat");
             System.out.println("6. Send request");
-            System.out.println("7. Exit to Main Menu");
+            System.out.println("7. View your requests");
+            System.out.println("8. Exit to Main Menu");
         } else if (currentLanguage == Language.RU) {
             System.out.println("Добро пожаловать в WSP\n Выберите опцию:");
             System.out.println("1. Новости");
@@ -48,8 +51,9 @@ public class ViewTeacher {
             System.out.println("4. Список студентов");
             System.out.println("5. Чат");
             System.out.println("6. Отправка запроса");
-            System.out.println("7. Выход в главное меню");
-        } else if (currentLanguage == Language.KZ){
+            System.out.println("7. Просмотр ваших запросов");
+            System.out.println("8. Выход в главное меню");
+        } else if (currentLanguage == Language.KZ) {
             System.out.println("WSP-ға қош келдіңіз\n Опцияны таңдаңыз:");
             System.out.println("1. Жаңалықтар");
             System.out.println("2. Ғылыми мақалалар");
@@ -57,7 +61,8 @@ public class ViewTeacher {
             System.out.println("4. Студенттер тізімі");
             System.out.println("5. Чат");
             System.out.println("6. Сұраныс жіберу");
-            System.out.println("7. Негізгі мәзірге қайту");
+            System.out.println("7. Сіздің сұраныстарыңызды қарау");
+            System.out.println("8. Негізгі мәзірге қайту");
         }
 
         // Ввод опции пользователем
@@ -75,10 +80,128 @@ public class ViewTeacher {
         } else if (option == 5) {
             // Действие для чата
         } else if (option == 6) {
-            // Действие для отправки запроса
+            handleSendRequest();
         } else if (option == 7) {
+            viewRequests();
+        } else if (option == 8) {
             myTeacher = null;
             BaseView.welcome(); // Возвращаем в главное меню
+        }
+    }
+
+    private static void handleSendRequest() {
+        Scanner scan = new Scanner(System.in);
+
+        // Выводим текст в зависимости от языка
+        if (currentLanguage == Language.ENG) {
+            System.out.println("Please enter the topic of the request:");
+        } else if (currentLanguage == Language.RU) {
+            System.out.println("Введите тему запроса:");
+        } else if (currentLanguage == Language.KZ) {
+            System.out.println("Сұраныстың тақырыбын енгізіңіз:");
+        }
+
+        // Ввод темы запроса
+        String topic = scan.nextLine();
+
+        // Выводим текст в зависимости от языка
+        if (currentLanguage == Language.ENG) {
+            System.out.println("Please enter the details of the request:");
+        } else if (currentLanguage == Language.RU) {
+            System.out.println("Введите детали запроса:");
+        } else if (currentLanguage == Language.KZ) {
+            System.out.println("Сұраныстың мәліметтерін енгізіңіз:");
+        }
+
+        // Ввод деталей запроса
+        String details = scan.nextLine();
+
+        // Создаём объект Request с нужными параметрами
+        Request newRequest = new Request(topic, LocalDateTime.now(), details);
+        myTeacher.addRequest(newRequest);
+        // Отправляем запрос через RequestController
+        RequestController.acceptRequest(newRequest);
+
+        // Выводим сообщение об успешной отправке запроса
+        if (currentLanguage == Language.ENG) {
+            System.out.println("Your request has been sent: " + details);
+        } else if (currentLanguage == Language.RU) {
+            System.out.println("Ваш запрос был отправлен: " + details);
+        } else if (currentLanguage == Language.KZ) {
+            System.out.println("Сұранысыңыз жіберілді: " + details);
+        }
+
+        // Возврат в меню
+        System.out.println("\nReturning to the main menu...");
+        menu(myTeacher);
+    }
+
+    private static void viewRequests() {
+        // Получаем список запросов для учителя
+        if (myTeacher != null && myTeacher.getRequests() != null && !myTeacher.getRequests().isEmpty()) {
+            if (currentLanguage == Language.ENG) {
+                System.out.println("Your Requests:");
+            } else if (currentLanguage == Language.RU) {
+                System.out.println("Ваши запросы:");
+            } else if (currentLanguage == Language.KZ) {
+                System.out.println("Сіздің сұраныстарыңыз:");
+            }
+
+            // Выводим запросы
+            for (Request request : myTeacher.getRequests()) {
+                System.out.println("Topic: " + request.getTopic());
+                if (request.getIsSigned()) {
+                    System.out.println("Status: Signed");
+                } else {
+                    System.out.println("Status: Not Signed");
+                }
+                System.out.println("----------------------------------");
+            }
+        } else {
+            // Если запросов нет
+            if (currentLanguage == Language.ENG) {
+                System.out.println("You have no requests.");
+            } else if (currentLanguage == Language.RU) {
+                System.out.println("У вас нет запросов.");
+            } else if (currentLanguage == Language.KZ) {
+                System.out.println("Сіздің сұраныстарыңыз жоқ.");
+            }
+        }
+
+        // Печатаем опции для пользователя
+        System.out.println("\nSelect an option:");
+        if (currentLanguage == Language.ENG) {
+            System.out.println("1. Send a new request");
+            System.out.println("2. Return to the main menu");
+        } else if (currentLanguage == Language.RU) {
+            System.out.println("1. Отправить новый запрос");
+            System.out.println("2. Вернуться в главное меню");
+        } else if (currentLanguage == Language.KZ) {
+            System.out.println("1. Жаңа сұраныс жіберу");
+            System.out.println("2. Негізгі мәзірге қайту");
+        }
+
+        // Ввод опции
+        Scanner scan = new Scanner(System.in);
+        int option = scan.nextInt();
+
+        // Обработка выбора
+        if (option == 1) {
+            handleSendRequest(); // Отправить новый запрос
+        } else if (option == 2) {
+            menu(myTeacher); // Вернуться в меню
+        } else {
+            printInvalidOptionMessage();
+        }
+    }
+
+    private static void printInvalidOptionMessage() {
+        if (currentLanguage == Language.ENG) {
+            System.out.println("Invalid option. Please try again.");
+        } else if (currentLanguage == Language.RU) {
+            System.out.println("Неверная опция. Пожалуйста, попробуйте снова.");
+        } else if (currentLanguage == Language.KZ) {
+            System.out.println("Қате опция. Қайталап көріңіз.");
         }
     }
 }

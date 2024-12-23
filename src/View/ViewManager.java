@@ -260,31 +260,26 @@ public class ViewManager {
                 System.out.println("Manage News:");
                 System.out.println("1. Add News");
                 System.out.println("2. View News Requests");
-                System.out.println("3. View Published News");
-                System.out.println("4. Back to Main Menu");
+                System.out.println("3. Back to Main Menu");
             } else if (currentLanguage == Language.RU) {
                 System.out.println("Управление новостями:");
                 System.out.println("1. Добавить новость");
-                System.out.println("2. Просмотр запросов новостей");
-                System.out.println("3. Просмотр опубликованных новостей");
-                System.out.println("4. Назад в главное меню");
+                System.out.println("2. Просмотр опубликованных новостей");
+                System.out.println("3. Назад в главное меню");
             } else if (currentLanguage == Language.KZ) {
                 System.out.println("Жаңалықтарды басқару:");
                 System.out.println("1. Жаңалық қосу");
-                System.out.println("2. Жаңалықтар сұраныстарын қарау");
-                System.out.println("3. Жарияланған жаңалықтарды қарау");
-                System.out.println("4. Бас мәзірге оралу");
+                System.out.println("2. Жарияланған жаңалықтарды қарау");
+                System.out.println("3. Бас мәзірге оралу");
             }
 
             int subOption = scan.nextInt();
 
             if (subOption == 1) {
                 addNews(scan);
-            } else if (subOption == 2) {
-                viewNewsRequests(scan);
-            } else if (subOption == 3) {
+            }  else if (subOption == 2) {
                 NewsController.viewNews(currentLanguage, myManager,UserType.MANAGER);
-            } else if (subOption == 4) {
+            } else if (subOption == 3) {
                 break;
             }
         }
@@ -355,47 +350,6 @@ public class ViewManager {
             System.out.println("Новость успешно добавлена!");
         } else if (currentLanguage == Language.KZ) {
             System.out.println("Жаңалық сәтті қосылды!");
-        }
-    }
-
-    private static void viewNewsRequests(Scanner scan) {
-
-        // Проходим по всем запросам без индексации
-        for (Request request : Database.NewsRequest) {
-
-            // Печать текста запроса (новости)
-            System.out.println("\nNews Request Details:");
-            System.out.println(request);  // Предполагается, что метод getDetails() есть у Request
-
-            // Спрашиваем пользователя, что делать с запросом
-            if (currentLanguage == Language.ENG) {
-                System.out.println("Do you want to accept this request? (1: Yes, 2: No)");
-            } else if (currentLanguage == Language.RU) {
-                System.out.println("Вы хотите принять этот запрос? (1: Да, 2: Нет)");
-            } else if (currentLanguage == Language.KZ) {
-                System.out.println("Сіз осы сұранысты қабылдағыңыз келе ме? (1: Иә, 2: Жоқ)");
-            }
-
-            int decision = scan.nextInt();
-            if (decision == 1) {
-                NewsController.acceptNewsRequest(request); // Принять запрос
-                if (currentLanguage == Language.ENG) {
-                    System.out.println("Request accepted.");
-                } else if (currentLanguage == Language.RU) {
-                    System.out.println("Запрос принят.");
-                } else if (currentLanguage == Language.KZ) {
-                    System.out.println("Сұраныс қабылданды.");
-                }
-            } else if (decision == 2) {
-                NewsController.rejectNewsRequest(request); // Отклонить запрос
-                if (currentLanguage == Language.ENG) {
-                    System.out.println("Request rejected.");
-                } else if (currentLanguage == Language.RU) {
-                    System.out.println("Запрос отклонен.");
-                } else if (currentLanguage == Language.KZ) {
-                    System.out.println("Сұраныс қабылданбады.");
-                }
-            }
         }
     }
 }

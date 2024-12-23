@@ -27,7 +27,7 @@ public class UserController {
                 Database.StudentDB.add(newStudent);
                 return Database.saveStudents();
             case MANAGER:
-                Manager newManager = new Manager(username, password, faculty);
+                Manager newManager = new Manager(username, password);
                 Database.ManagerDB.add(newManager);
                 return Database.saveManagers();
             case LIBRARIAN:
@@ -35,7 +35,7 @@ public class UserController {
                 Database.LibrarianDB.add(newLibrarian);
                 return Database.saveLibrarians();
             case DEAN:
-                Dean newDean = new Dean(username, password, faculty);
+                Dean newDean = new Dean(username, password);
                 Database.DeanDB.add(newDean);
                 return Database.saveDeans();
             default:

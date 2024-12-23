@@ -9,22 +9,6 @@ import Model.*;
 import View.*;
 
 public class NewsController {
-    public static void acceptNewsRequest(Request request){
-        News news = new News(request.getTitle(), LocalDateTime.now(),  request.getTopic(), request.getLevelImportance());
-        Database.NewsDB.add(news);
-        Database.saveNewsDB();
-    }
-
-    public static void rejectNewsRequest(Request request){
-        for(Request r: Database.NewsRequest){
-            if(r.getTitle().equals(request.getTitle())){
-                Database.NewsRequest.remove(r);
-                Database.saveNewsDB();
-                return;
-            }
-        }
-    }
-
     public static void viewNews(Language currentLanguage, User user, UserType userType) {
         User myUser = user;
         List<News> newsList = Database.getNewsDB();

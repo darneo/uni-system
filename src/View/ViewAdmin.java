@@ -129,7 +129,8 @@ public class ViewAdmin {
         Faculty pickedFaculty = null;
         Degree pickedDegree = null;
 
-        if (option == 1 || option == 2 || option == 3 || option == 5) {
+        // Запрашиваем факультет только для студента
+        if (option == 3) {
             System.out.println("Select the faculty:");
             System.out.println("1. BS");
             System.out.println("2. SITE");
@@ -149,7 +150,7 @@ public class ViewAdmin {
             }
         }
 
-        // Если выбран учитель, дополнительно запрашиваем уровень лектора
+        // Если выбран учитель, менеджер или декан, запрашиваем степень
         if (option == 1) {
             System.out.println("Select the degree:");
             System.out.println("1. Lecturer");
@@ -173,7 +174,7 @@ public class ViewAdmin {
         // Создаем пользователя в зависимости от выбранной роли
         switch (option) {
             case 1 -> UserController.createUser(username, password, UserType.TEACHER, pickedFaculty, pickedDegree);
-            case 2 -> UserController.createUser(username, password, UserType.MANAGER, pickedFaculty, null);
+            case 2 -> UserController.createUser(username, password, UserType.MANAGER, null, null);
             case 3 -> UserController.createUser(username, password, UserType.STUDENT, pickedFaculty, null);
             case 4 -> UserController.createUser(username, password, UserType.LIBRARIAN, null, null);
             case 5 -> UserController.createUser(username, password, UserType.DEAN, pickedFaculty, null);
@@ -183,6 +184,7 @@ public class ViewAdmin {
         System.out.println("User added successfully!");
         menu();
     }
+
 
     public static void viewUsers() {
         if (currentLanguage == Language.ENG) {

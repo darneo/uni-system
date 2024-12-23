@@ -27,7 +27,6 @@ public class ViewDean {
 
     public static void menu(Dean dean){
         Scanner scan = new Scanner(System.in);
-        myDean = dean;
 
         // Печать меню в зависимости от выбранного языка
         if (currentLanguage == Language.ENG){
